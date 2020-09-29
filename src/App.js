@@ -19,7 +19,7 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => <PaletteList paletts={seedColors} />}
+          render={() => <PaletteList palettes={seedColors} />}
         />
         <Route
           exact
