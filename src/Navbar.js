@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Slider from 'rc-slider';
 
@@ -6,8 +8,18 @@ import 'rc-slider/assets/index.css';
 import './Navbar.scss';
 
 class Navbar extends Component {
+  constructor(props) {
+    super();
+    this.state = { format: 'hex' };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({ format: e.target.value });
+    this.props.handleChange(e.target.value);
+  }
   render() {
     const { level, changeLevel } = this.props;
+    const { format } = this.state;
     return (
       <header className="Navbar">
         <div className="logo">
@@ -24,6 +36,13 @@ class Navbar extends Component {
               onAfterChange={changeLevel}
             />
           </div>
+        </div>
+        <div className="select-container">
+          <Select value={format} onChange={this.handleChange}>
+            <MenuItem value="hex">HEX - #ffffff</MenuItem>
+            <MenuItem value="rgb">rgb - #ffffff</MenuItem>
+            <MenuItem value="rgba">rgba - #ffffff</MenuItem>
+          </Select>
         </div>
       </header>
     );
