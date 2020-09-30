@@ -3,6 +3,49 @@ import { Link } from 'react-router-dom';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { withStyles } from '@material-ui/styles';
+
+const styles = {
+  Palette: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  paletteColors: {
+    height: '90%',
+  },
+  goBack: {
+    width: '20%',
+    height: '50%',
+    margin: '0 auto',
+    display: 'inline-block',
+    position: 'relative',
+    cursor: 'pointer',
+    marginBottom: '-3.5px',
+    opacity: 1,
+    backgroundColor: 'black',
+    '& a': {
+      color: 'white',
+      width: '100px',
+      height: '30px',
+      position: 'absolute',
+      display: 'inline-block',
+      top: '50%',
+      left: '50%',
+      marginTop: '-15px',
+      marginLeft: '-50px',
+      textAlign: 'center',
+      outline: 'none',
+      border: 'none',
+      background: 'rgba(225, 225, 225, 0.3)',
+      fontSize: '1rem',
+      lineHeight: '30px',
+      textTransform: 'uppercase',
+      cursor: 'pointer',
+      textDecoration: 'none',
+    },
+  },
+};
 
 class SingleColorPalette extends Component {
   constructor(props) {
@@ -28,6 +71,7 @@ class SingleColorPalette extends Component {
 
   render() {
     const { format } = this.state;
+    const { classes } = this.props;
     const colorBoxes = this._shades.map((color) => (
       <ColorBox
         key={color.name}
@@ -37,15 +81,13 @@ class SingleColorPalette extends Component {
       />
     ));
     return (
-      <div className="SingleColorPalette Palette">
+      <div className={classes.Palette}>
         <Navbar handleChange={this.changeFormat} showAllColors={false} />
 
-        <div className="Palette-colors">
+        <div className={classes.paletteColors}>
           {colorBoxes}
-          <div className="go-back ColorBox">
-            <Link to={`/palette/${this.props.palette.id}`}>
-              <button className="back-button">Go Back</button>
-            </Link>
+          <div className={classes.goBack}>
+            <Link to={`/palette/${this.props.palette.id}`}>Go Back</Link>
           </div>
         </div>
         <Footer
@@ -57,4 +99,4 @@ class SingleColorPalette extends Component {
   }
 }
 
-export default SingleColorPalette;
+export default withStyles(styles)(SingleColorPalette);
