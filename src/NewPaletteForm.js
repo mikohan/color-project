@@ -15,6 +15,7 @@ import { ChromePicker } from 'react-color';
 import DraggableColorList from './DraggableColorList';
 import { arrayMove } from 'react-sortable-hoc';
 import PaletteFormNav from './PaletteFormNav';
+import ColorPickerForm from './ColorPickerForm';
 
 const drawerWidth = 400;
 
@@ -84,11 +85,11 @@ class NewPaletteForm extends Component {
     super();
     this.state = {
       open: true,
-      currentColor: 'teal',
+
       colors: props.palettes[0].colors,
       newColorName: '',
     };
-    this.updateCurrentColor = this.updateCurrentColor.bind(this);
+
     this.addNewColor = this.addNewColor.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -146,10 +147,6 @@ class NewPaletteForm extends Component {
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-  }
-  updateCurrentColor(newColor) {
-    console.log(newColor.hex);
-    this.setState({ currentColor: newColor.hex });
   }
 
   addNewColor() {
@@ -218,38 +215,7 @@ class NewPaletteForm extends Component {
               Random Color
             </Button>
           </div>
-
-          <ChromePicker
-            color={this.state.currentColor}
-            onChangeComplete={this.updateCurrentColor}
-          />
-          <ValidatorForm onSubmit={this.addNewColor}>
-            <TextValidator
-              value={this.state.newColorName}
-              name="newColorName"
-              onChange={this.handleChange}
-              validators={['required', 'isColorNameUique', 'isColorUique']}
-              errorMessages={[
-                'Enter a color name',
-                'Color Name must be unique!',
-                'Color Already Used',
-              ]}
-            />
-            <div style={{ marginTop: '50px' }}></div>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={paletteIsFull}
-              style={{
-                backgroundColor: paletteIsFull
-                  ? 'rgba(0,0,0,0.26)'
-                  : this.state.currentColor,
-              }}
-              type="submit"
-            >
-              {paletteIsFull ? 'Palette is Full' : 'Add Color'}
-            </Button>
-          </ValidatorForm>
+          <ColorPickerForm paletteIsFull={paletteIsFull} />
         </Drawer>
         <main
           className={classNames(classes.content, {
