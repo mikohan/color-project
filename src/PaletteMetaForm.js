@@ -14,10 +14,12 @@ class PaletteMetaForm extends Component {
   constructor(props) {
     super();
     this.state = {
-      open: true,
+      stage: 'form',
       newPaletteName: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.showEmojiPicker = this.showEmojiPicker.bind(this);
+    this.savePalette = this.savePalette.bind(this);
   }
   componentDidMount() {
     ValidatorForm.addValidationRule('isPaletteNameUique', (value) => {
@@ -26,6 +28,17 @@ class PaletteMetaForm extends Component {
       );
       return chk;
     });
+  }
+
+  savePalette(emoji) {
+    this.props.handleSubmit({
+      paletteName: this.state.newPaletteName,
+      emoji: emoji.native,
+    });
+  }
+
+  showEmojiPicker() {
+    this.setState({ stage: 'emoji' });
   }
 
   handleChange(e) {
@@ -39,47 +52,54 @@ class PaletteMetaForm extends Component {
     this.setState({ open: false });
   };
   render() {
-    const { open, newPaletteName } = this.state;
-    const { hideForm, handleSubmit } = this.props;
+    const { newPaletteName } = this.state;
+    const { hideForm } = this.props;
     return (
-      <Dialog
-        onClose={hideForm}
-        open={open}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Choose a palette Name</DialogTitle>
-        <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
-          <DialogContent>
-            <DialogContentText>
-              Please enter a name for your new beautiful palette. Make sure it
-              is unique!
-            </DialogContentText>
-            <Picker />
+      <div>
+        <Dialog open={this.state.stage === 'emoji'} onClose={hideForm}>
+          <DialogTitle id="emoji-dialog-title">Choose an Emoji</DialogTitle>
+          <Picker title="Pick a Palette Emoji" onSelect={this.savePalette} />
+        </Dialog>
+        <Dialog
+          onClose={hideForm}
+          open={this.state.stage === 'form'}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">
+            Choose a palette Name
+          </DialogTitle>
+          <ValidatorForm onSubmit={this.showEmojiPicker}>
+            <DialogContent>
+              <DialogContentText>
+                Please enter a name for your new beautiful palette. Make sure it
+                is unique!
+              </DialogContentText>
 
-            <TextValidator
-              label="Palette Name"
-              value={newPaletteName}
-              name="newPaletteName"
-              onChange={this.handleChange}
-              fullWidth
-              margin="normal"
-              validators={['required', 'isPaletteNameUique']}
-              errorMessages={[
-                'Enter Palette Name',
-                'Palette name alredy used! Pick up another one!',
-              ]}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={hideForm} color="primary">
-              Cancel
-            </Button>
-            <Button type="submit" variant="contained" color="primary" noWrap>
-              Save Palette
-            </Button>
-          </DialogActions>
-        </ValidatorForm>
-      </Dialog>
+              <TextValidator
+                label="Palette Name"
+                value={newPaletteName}
+                name="newPaletteName"
+                onChange={this.handleChange}
+                fullWidth
+                margin="normal"
+                validators={['required', 'isPaletteNameUique']}
+                errorMessages={[
+                  'Enter Palette Name',
+                  'Palette name alredy used! Pick up another one!',
+                ]}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={hideForm} color="primary">
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary" noWrap>
+                Save Palette
+              </Button>
+            </DialogActions>
+          </ValidatorForm>
+        </Dialog>
+      </div>
     );
   }
 }
