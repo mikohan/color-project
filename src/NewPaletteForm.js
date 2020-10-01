@@ -115,6 +115,12 @@ class NewPaletteForm extends Component {
     });
   }
 
+  removeColor(colorName) {
+    this.setState({
+      colors: this.state.colors.filter((color) => color.name !== colorName),
+    });
+  }
+
   handleSubmit() {
     let newName = this.state.newPaletteName;
     const newPalette = {
@@ -261,6 +267,7 @@ class NewPaletteForm extends Component {
               color={color.color}
               name={color.name}
               key={color.name}
+              handleClick={() => this.removeColor(color.name)}
             />
           ))}
         </main>
