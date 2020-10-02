@@ -1,4 +1,6 @@
 import { DRAWER_WIDTH } from '../config';
+import sizes from './sizes';
+
 const drawerWidth = DRAWER_WIDTH;
 
 export const styles = (theme) => ({
@@ -32,11 +34,27 @@ export const styles = (theme) => ({
   },
   navBtns: {
     marginRight: '1rem',
+    [sizes.down('xs')]: {
+      marginRight: '0.5',
+    },
   },
   button: {
     margin: '0 0.5rem',
+    [sizes.down('xs')]: {
+      margin: '0 0.2rem',
+      fontSize: '0.75rem',
+      padding: '0.3rem',
+    },
   },
   link: {
     textDecoration: 'none',
+  },
+  headerText: {
+    [sizes.down('xs')]: {
+      fontSize: '1rem',
+    },
+    [sizes.down('xxs')]: {
+      display: 'none',
+    },
   },
 });

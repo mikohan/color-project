@@ -1,3 +1,4 @@
+import sizes from './sizes';
 export const styles = {
   Navbar: {
     display: 'flex',
@@ -19,6 +20,9 @@ export const styles = {
     '& a': {
       color: 'black',
       textDecoration: 'none',
+    },
+    [sizes.down('xs')]: {
+      display: 'none',
     },
   },
 
@@ -42,6 +46,9 @@ export const styles = {
     '& .select-container': {
       marginLeft: 'auto',
       marginRight: '1rem',
+    },
+    [sizes.down('md')]: {
+      width: '150px',
     },
   },
   selectContainer: {
