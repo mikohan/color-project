@@ -48,6 +48,9 @@ export const styles = {
       marginRight: '1rem',
     },
     [sizes.down('md')]: {
+      width: '250px',
+    },
+    [sizes.down('sm')]: {
       width: '150px',
     },
   },
