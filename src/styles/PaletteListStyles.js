@@ -2,6 +2,17 @@ import sizes from './sizes';
 import background from '../assets/background2.svg';
 
 export const styles = {
+  '@global': {
+    '.fade-exit': {
+      '.fade-exit': {
+        opacity: 1,
+      },
+    },
+    '.fade-exit-active': {
+      opacity: 0,
+      transition: 'opacity 500ms ease-out',
+    },
+  },
   root: {
     /* background by SVGBackgrounds.com */
     backgroundColor: '#0000ff',
@@ -11,6 +22,7 @@ export const styles = {
     alignItems: 'flex-start',
     justifyContent: 'center',
     overflow: 'scroll',
+    paddingBottom: '4rem',
   },
   container: {
     width: '60%',
