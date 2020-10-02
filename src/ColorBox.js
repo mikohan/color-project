@@ -40,7 +40,7 @@ class ColorBox extends Component {
 
           <div
             className={classNames(classes.copyMessage, {
-              [classes.showMesagge]: copied,
+              [classes.showMessage]: copied,
             })}
           >
             <h1>copied!</h1>
