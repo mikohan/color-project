@@ -1,12 +1,16 @@
 import sizes from './sizes';
+import background from '../assets/background2.svg';
 
 export const styles = {
   root: {
-    backgroundColor: 'blue',
+    /* background by SVGBackgrounds.com */
+    backgroundColor: '#0000ff',
+    backgroundImage: `url(${background})`,
     height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
+    overflow: 'scroll',
   },
   container: {
     width: '60%',
@@ -44,5 +48,8 @@ export const styles = {
       gridTemplateColumns: 'repeat(1, 100%)',
       gridGap: '1.5rem',
     },
+  },
+  heading: {
+    fontSize: '2rem',
   },
 };
