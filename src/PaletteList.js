@@ -10,12 +10,13 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import MiniPalette from './MiniPalette';
-import { withStyles } from '@material-ui/styles';
-import { styles } from './styles/PaletteListStyles';
 import red from '@material-ui/core/colors/red';
 import blue from '@material-ui/core/colors/blue';
+import { withStyles } from '@material-ui/styles';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+import MiniPalette from './MiniPalette';
+import { styles } from './styles/PaletteListStyles';
 
 class PaletteList extends Component {
   constructor(props) {
@@ -63,7 +64,6 @@ class PaletteList extends Component {
                 <MiniPalette
                   {...palette}
                   goToPalette={this.goToPalette}
-                  // deletePalette={this.props.deletePalette}
                   openDialog={this.openDialog}
                   key={palette.id}
                   id={palette.id}
