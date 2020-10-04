@@ -64,5 +64,6 @@ class ColorBox extends Component {
     );
   }
 }
+// Some comment
 
 export default withStyles(styles)(ColorBox);
